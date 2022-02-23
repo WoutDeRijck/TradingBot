@@ -1,3 +1,6 @@
+from matplotlib.pyplot import bar
+
+
 class simple_moving_average(object):
     def __init__(self, period):
         self.period = period
@@ -38,7 +41,20 @@ class macd(object):
     # Standard: 12 EMA - 26 EMA
     def update_macd(self):
         self.macd = self.fast_ema - self.slow_ema
-        
+
         self.memory.pop(0)
         self.memory.append(self.macd)
         return macd
+
+class swing_low(object):
+    def __init__(self):
+        self.swing_low = 0
+        self.memory = [0] * 5
+    
+    def update_swing_low(self, bar_low):
+        self.memory.pop(0)
+        self.memory.append(bar_low)
+
+        if(self.memory[0] > self.memory[2] and self.memory[1] > self.memory[2] and self.memory[3] > self.memory[2] and self.memory[4] > self.memory[2]):
+            self.swing_low = self.memory[2]
+        return self.swing_low

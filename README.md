@@ -22,5 +22,5 @@ For more information, see https://github.com/alpacahq/alpaca-trade-api-python
 For the algorithm, we use exponential averages and the macd
 1. Only when the price is above the long term line, we check for buying opportunities
 2. If this is fulfilled we check for a crossover from the macd line above the signal line: BUY
-3. Make a sell order with a stop loss = price of long term line and a limit = 1,5 * stop loss
+3. Make a sell order with a stop loss = price of nearest swing low and a limit = 1,5 * stop loss
 4. If there is a crossunder from the macd line under the signal line: SELL anyway

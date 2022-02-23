@@ -21,6 +21,9 @@ signal_line = indicators.exponential_moving_average(9)
 #   long term trend
 long_term_trend = indicators.exponential_moving_average(100)
 
+#   swing low
+swing_low = indicators.swing_low()
+
 # Algorithm for trading
 bought = False  
 async def bars_handler(bar):
@@ -32,6 +35,7 @@ async def bars_handler(bar):
     macd.update_macd()
     signal_line.update_ema(macd.macd)
     long_term_trend.update_ema(bar.close)
+    swing_low.update_swing_low(bar.low)
 
     # Check for selling opportunity
     if(bought):
@@ -49,7 +53,7 @@ async def bars_handler(bar):
         if(macd.memory[0] <= signal_line.memory[0] and macd.memory[1] >= signal_line.memory[1]):
             bought = True
             api.submit_order(ticker_symbol, 1, 'buy', 'market', 'day')
-            api.submit_order(ticker_symbol, 1, 'sell', 'limit', 'day', stop_loss={"stop_price": str(bar.close - 5), "limit_price": str(bar.close + 5)})
+            api.submit_order(ticker_symbol, 1, 'sell', 'limit', 'day', stop_loss={"stop_price": str(swing_low.swing_low), "limit_price": str(1.5 * swing_low.swing_low)})
 
     
 
