@@ -16,3 +16,8 @@ class data_ticker_bars(object):
         self.stream.subscribe_bars(self.handler, str(self.ticker))
 
         self.stream.run()
+
+# Getting data from each trade made 
+class data_ticker_trades(object):
+    def __init__(self):
+        pass

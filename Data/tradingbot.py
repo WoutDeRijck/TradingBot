@@ -1,17 +1,42 @@
 import data 
 import indicators
+import alpaca_trade_api as tradeapi
 
-simple_moving_average_3 = indicators.simple_moving_average(3)
-async def tsla_handler(bar):
+# API to submit orders, etc... 
+api = tradeapi.REST()
+
+# Setting up indicators
+#   macd
+fast_ema = indicators.exponential_moving_average(12)
+slow_ema = indicators.exponential_moving_average(26)
+macd_standard = indicators.macd(fast_ema, slow_ema)
+
+#   signal line
+signal_line = indicators.exponential_moving_average(9)
+
+#   long term trend
+long_term_trend = indicators.exponential_moving_average(100)
+
+# Algorithm for trading
+async def bars_handler(bar):
     print(bar)
-    simple_moving_average_3.update_ma(bar.close)
 
+    # Updating averages 
+    fast_ema.update_ema(bar.close)
+    slow_ema.update_ema(bar.close)
+    macd_standard.update_macd()
+    signal_line.update_ema(macd_standard.macd)
+    long_term_trend.update_ema(bar.close)
 
-tsla = data.data_ticker_bars('TSLA', tsla_handler)
-tsla.start()
-
-class algotrading(object):
-    def __init__(self):
+    # Uptrend
+    if(bar.close >= long_term_trend.ema):
+        # Check for buy opportunity
+        # If bought, look for sell opportunity
         pass
 
-    # def cross(self):
+    # Downtrend
+    else:
+        pass
+
+tsla = data.data_ticker_bars('TSLA', bars_handler)
+tsla.start()
