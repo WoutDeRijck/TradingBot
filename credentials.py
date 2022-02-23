@@ -16,6 +16,6 @@ export APCA_API_DATA_URL=https://data.alpaca.markets
 
 For paper trading:
 export APCA_API_BASE_URL=https://paper-api.alpaca.markets
-'PKDLU7JBVEEHQ9X28ZL0', 'mdShaWjeHEmwy3qKX2U3HwD3AwusUkap9VT9wUWA', 'https://paper-api.alpaca.markets', api_version='v2'
+
 """
 
