@@ -1,5 +1,3 @@
-from matplotlib import ticker
-from matplotlib.markers import MarkerStyle
 import data 
 import indicators
 import alpaca_trade_api as tradeapi
