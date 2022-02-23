@@ -1,8 +1,10 @@
 # Setup
----
+
 To be able to run this bot, install the library alpaca-trade-api:
 ---
-`$ pip3 install alpaca-trade-api`
+´´´
+$ pip3 install alpaca-trade-api
+´´´
 
 Also set the environment variables (in linux):
 ---
@@ -16,7 +18,7 @@ For more information, see https://github.com/alpacahq/alpaca-trade-api-python
 
 
 # Algorithm
----
+
 For the algorithm, we use exponential averages and the macd
 1. Only when the price is above the long term line, we check for buying opportunities
 2. If this is fulfilled we check for a crossover from the macd line above the signal line: BUY
